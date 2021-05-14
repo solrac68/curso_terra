@@ -1,0 +1,17 @@
+# Instalación Terraform Debian y Ubuntu
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt install terraform
+
+
+sudo apt install tree
+tree -a
+
+terraform init
+terraform fmt -diff
+terraform plan
+terraform apply
+terraform destroy
+terraform plan -destroy
+terraform plan -out=plan1
+terraform apply plan1
