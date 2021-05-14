@@ -1,3 +1,17 @@
+# Creando una llave ssh
+git config --global user.name "Carlos"
+git config --global user.email "solrac.hincapie@gmail.com"
+ssh-keygen -t rsa -b 4096 -C "solrac.hincapie@gmail.com"
+sudo apt-get install xclip
+cat ~/.ssh/id_rsa.pub
+# Copiar llave si no funciona: xclip -sel clip < ~/.ssh/id_rsa.pub
+ssh -T git@github.com
+git add .
+git commit -m"Inicio"
+git branch -M main
+git remote add origin git@github.com:solrac68/curso_terra.git
+
+
 # Instalación Terraform Debian y Ubuntu
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
