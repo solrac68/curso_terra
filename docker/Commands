@@ -21,6 +21,12 @@ Crear y ejecuta un contenedor nuevo en forma iteractiva
 $ docker run -it ubuntu
 root@0617fe109b46:/# uname -a
 
+$ docker run -it --name mi_ubutu ubuntu # crea un contenedor desde la imagen ubuntu con nombre mi_ubuntu
+root@a9abe5654cf0:/#
+
+$ docker run -it --name mi_ubutu ubuntu bash # crea un contenedor desde la imagen ubuntu con nombre mi_ubuntu e inicializa el comando bash
+root@a9abe5654cf0:/#
+
 Inicializando un contenedor parado
 $ docker start -i 0617fe109b46
 $ docker start -i 0617
@@ -33,3 +39,41 @@ $ docker pull ubuntu:trusty
 
 Crea un contenedor con la imagen trusty ubuntu y entra en mod bash
 $ docker run -it ubuntu:trusty bash
+
+Elimina un contenedor
+$ docker rm c611
+$ docker rm heuristic_cerf
+
+
+Elimina imagenes
+$ docker rmi 13b6
+$ docker rmi -f 7e0aa2d69a15 # Fuerza borrado aunque este asociado a una imagen
+
+Ejecutar comandos dentro de las imagenes
+$ docker exec mi_ubutu echo hola
+hola
+
+$ docker exec a9abe5654cf0  echo hola mundo
+hola mundo
+
+$ docker exec -it mi_ubutu bash
+root@a9abe5654cf0:/# 
+
+$ docker pull python # Descarga imagen de python
+$ docker run -it --name mi_python python # Lanza la imagen de python con el comando python
+
+$ docker exec -it mi_python bash 
+
+Comandos Image
+$ docker image ls
+$ docker image rm -f ubuntu # Elimina una imagen
+
+Comandos container
+$ docker container ls
+$ docker container ls --help
+
+
+
+
+
+
