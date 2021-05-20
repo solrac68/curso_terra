@@ -1,0 +1,35 @@
+$ docker --version
+$ docker info
+
+Muestra las imagenes
+$ docker images
+
+Muestra los contenedores
+$ docker ps
+$ docker ps -a
+$ docker ps --help
+$ docker ps -l
+$ docker ps -n 4
+$ docker ps -a -q
+
+Muestra las imagenes
+$ docker images --help
+$ docker images -a
+$ docker images -a -q
+
+Crear y ejecuta un contenedor nuevo en forma iteractiva
+$ docker run -it ubuntu
+root@0617fe109b46:/# uname -a
+
+Inicializando un contenedor parado
+$ docker start -i 0617fe109b46
+$ docker start -i 0617
+
+Crear contenedor en background - El contenedor esta funcionando des pues de estae comando
+$ docker run -d nginx
+
+Desgargar imagen desde Docker Hub
+$ docker pull ubuntu:trusty
+
+Crea un contenedor con la imagen trusty ubuntu y entra en mod bash
+$ docker run -it ubuntu:trusty bash
