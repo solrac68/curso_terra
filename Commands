@@ -7,7 +7,7 @@ cat ~/.ssh/id_rsa.pub
 # Copiar llave si no funciona: xclip -sel clip < ~/.ssh/id_rsa.pub
 ssh -T git@github.com
 git add .
-git commit -m"Inicio"
+git commit -m"Inicio
 git branch -M main
 git remote add origin git@github.com:solrac68/curso_terra.git
 
@@ -33,9 +33,54 @@ terraform destroy
 terraform plan -destroy
 terraform plan -out=plan1
 
+Lista los componentes instalados o aprovisionados por terraform
+terraform state list
+
 # The terraform fmt command automatically updates configurations in the current directory for readability and consistency.
 # Format your configuration. Terraform will print out the names of the files it modified, 
 terraform fmt
 
 #Valida la configuración.
 terraform validate
+
+Aplica configuración del archivo main.tf
+$ terraform apply --auto-approve
+
+Destrulle despliegue que se encuentra en terraform.tfstate
+$ terraform destroy --auto-approve
+
+Instalando format JSON
+$ sudo apt install jq
+eJEMPLO
+$ terraform show -json | jq
+
+Consulta la configuración actual y aprovisionamiento de los recursos que empiezan por "ip"
+$ terraform show | grep ip
+
+Consola iteractiva
+$ terraform console
+> docker_container.nodered_container.name
+"nodered"
+> docker_container.nodered_container.ip_address
+"172.17.0.2"
+
+Muestra las salidas de terraform
+$ terraform output
+IP_Address = "172.17.0.2"
+container_name = "nodered"
+
+Inicializa los nuevos componentes
+$ terraform init
+
+Muestra el estado actual
+$ terraform state list
+
+
+Muestra
+$ terraform destroy --auto-approve
+
+
+
+
+
+

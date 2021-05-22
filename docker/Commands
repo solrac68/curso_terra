@@ -31,7 +31,7 @@ Inicializando un contenedor parado
 $ docker start -i 0617fe109b46
 $ docker start -i 0617
 
-Crear contenedor en background - El contenedor esta funcionando des pues de estae comando
+Crear contenedor en background - El contenedor esta funcionando despues de estae comando
 $ docker run -d nginx
 
 Desgargar imagen desde Docker Hub
@@ -71,6 +71,25 @@ $ docker image rm -f ubuntu # Elimina una imagen
 Comandos container
 $ docker container ls
 $ docker container ls --help
+
+Docker Logs y Docker kills
+
+$ docker run -d ubuntu sh -c "while true; do date; done"
+$ docker logs bold_keldysh # Permite mirar lo que se esta ejecutando en el contenedor
+$ docker logs d18394 --tail 10 # Permite mirar lo que se esta ejecutando en el contenedor, los últimos 10 registros
+
+
+docker kill bold_keldysh # Terminar un container
+
+
+Docker Top
+
+docker top 26630210bdea
+docker stats d18394251999
+
+
+
+
 
 
 
