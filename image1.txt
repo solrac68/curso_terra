@@ -1,0 +1,171 @@
+[
+    {
+        "Id": "sha256:7c6d73bed103c0effc947c0f50a9614fdfa912f5a74376dd0d65fb08a4f235b6",
+        "RepoTags": [
+            "nodered/node-red:latest"
+        ],
+        "RepoDigests": [
+            "nodered/node-red@sha256:f7a50c7c144d4472ead0e9eda8a7447aa3df6002e7851dfc7f5ba774b9598cd2"
+        ],
+        "Parent": "",
+        "Comment": "",
+        "Created": "2021-05-18T12:45:14.463383117Z",
+        "Container": "29d6fbfb16426de0aa01dfa4d6e3b6d6b62a238189f25227f4097cf6dc9e9a61",
+        "ContainerConfig": {
+            "Hostname": "29d6fbfb1642",
+            "Domainname": "",
+            "User": "node-red",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "1880/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NODE_VERSION=10.24.1",
+                "YARN_VERSION=1.22.5",
+                "NODE_RED_VERSION=v1.3.5",
+                "NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules",
+                "FLOWS=flows.json"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "ENTRYPOINT [\"npm\" \"--no-update-notifier\" \"--no-fund\" \"start\" \"--cache\" \"/data/.npm\" \"--\" \"--userDir\" \"/data\"]"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "node /healthcheck.js"
+                ]
+            },
+            "Image": "sha256:cf30afb323670d112af0318f91b4ced829a920d30c3a94ddbfd4ec2847bff1c0",
+            "Volumes": null,
+            "WorkingDir": "/usr/src/node-red",
+            "Entrypoint": [
+                "npm",
+                "--no-update-notifier",
+                "--no-fund",
+                "start",
+                "--cache",
+                "/data/.npm",
+                "--",
+                "--userDir",
+                "/data"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "authors": "Dave Conway-Jones, Nick O'Leary, James Thomas, Raymond Mouthaan",
+                "org.label-schema.arch": "amd64",
+                "org.label-schema.build-date": "2021-05-18T12:44:21Z",
+                "org.label-schema.description": "Low-code programming for event-driven applications.",
+                "org.label-schema.docker.dockerfile": ".docker/Dockerfile.alpine",
+                "org.label-schema.license": "Apache-2.0",
+                "org.label-schema.name": "Node-RED",
+                "org.label-schema.url": "https://nodered.org",
+                "org.label-schema.vcs-ref": "0c464886ddacb4fbb486d2e69dd434afa1e28b5d",
+                "org.label-schema.vcs-type": "Git",
+                "org.label-schema.vcs-url": "https://github.com/node-red/node-red-docker",
+                "org.label-schema.version": "1.3.5"
+            }
+        },
+        "DockerVersion": "18.06.0-ce",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "node-red",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "1880/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NODE_VERSION=10.24.1",
+                "YARN_VERSION=1.22.5",
+                "NODE_RED_VERSION=v1.3.5",
+                "NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules",
+                "FLOWS=flows.json"
+            ],
+            "Cmd": null,
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "node /healthcheck.js"
+                ]
+            },
+            "Image": "sha256:cf30afb323670d112af0318f91b4ced829a920d30c3a94ddbfd4ec2847bff1c0",
+            "Volumes": null,
+            "WorkingDir": "/usr/src/node-red",
+            "Entrypoint": [
+                "npm",
+                "--no-update-notifier",
+                "--no-fund",
+                "start",
+                "--cache",
+                "/data/.npm",
+                "--",
+                "--userDir",
+                "/data"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "authors": "Dave Conway-Jones, Nick O'Leary, James Thomas, Raymond Mouthaan",
+                "org.label-schema.arch": "amd64",
+                "org.label-schema.build-date": "2021-05-18T12:44:21Z",
+                "org.label-schema.description": "Low-code programming for event-driven applications.",
+                "org.label-schema.docker.dockerfile": ".docker/Dockerfile.alpine",
+                "org.label-schema.license": "Apache-2.0",
+                "org.label-schema.name": "Node-RED",
+                "org.label-schema.url": "https://nodered.org",
+                "org.label-schema.vcs-ref": "0c464886ddacb4fbb486d2e69dd434afa1e28b5d",
+                "org.label-schema.vcs-type": "Git",
+                "org.label-schema.vcs-url": "https://github.com/node-red/node-red-docker",
+                "org.label-schema.version": "1.3.5"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 457786366,
+        "VirtualSize": 457786366,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/snap/docker/common/var-lib-docker/overlay2/3a3bbfcdcb64d47f817be28729252811a4b5b0df4f2a198f2b2a857c0e42caae/diff:/var/snap/docker/common/var-lib-docker/overlay2/3a59c92c2db4eb9dc870f43cbd21963fd46112e0b95cd9b9db68f5f37d53f57c/diff:/var/snap/docker/common/var-lib-docker/overlay2/75a96c9ba6fe15c5ee6a7436033f00dd67f6a4c43a7ef594dde082ef649c665b/diff:/var/snap/docker/common/var-lib-docker/overlay2/15d8be02e3a66705b3dd5af46979db22bb87336b54f80f4f18a4b109a516ea38/diff:/var/snap/docker/common/var-lib-docker/overlay2/e45f537a8bc5f049c99f67fcc8f129a79c7e10f9107be795bdbae8961b662ab1/diff:/var/snap/docker/common/var-lib-docker/overlay2/fe4aa55029d6decb770eca7df58fe05c42515defdf8a35db09959b369bcfa119/diff:/var/snap/docker/common/var-lib-docker/overlay2/5775df8ea60b1be9fe41441858612ab996f7bbc0587836d61550ccd7e6305b25/diff:/var/snap/docker/common/var-lib-docker/overlay2/3f1ccb729ecd89473a546fbb6572bcca0216ceba46587a5f295199d1e6af7a7d/diff:/var/snap/docker/common/var-lib-docker/overlay2/a653a167fd52a1b0c29a3d22cb1eec3c2cdf82b48c2958c17bd835d09a327864/diff:/var/snap/docker/common/var-lib-docker/overlay2/a8cef2e5e8f658f2787a5f281c9529385b466fbe5a996e09540d4b34c6278647/diff:/var/snap/docker/common/var-lib-docker/overlay2/2a30f77eedf5e2781ee4752a0372728f4ac0cdcf6b7165e9e9917aa6f842d8c4/diff",
+                "MergedDir": "/var/snap/docker/common/var-lib-docker/overlay2/8b5d48994b5ecb31e57902732eeea59657dc1a0c52f9ad2f8ba59c7b85ba969d/merged",
+                "UpperDir": "/var/snap/docker/common/var-lib-docker/overlay2/8b5d48994b5ecb31e57902732eeea59657dc1a0c52f9ad2f8ba59c7b85ba969d/diff",
+                "WorkDir": "/var/snap/docker/common/var-lib-docker/overlay2/8b5d48994b5ecb31e57902732eeea59657dc1a0c52f9ad2f8ba59c7b85ba969d/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:9a5d14f9f5503e55088666beef7e85a8d9625d4fa7418e2fe269e9c54bcb853c",
+                "sha256:a6524c5b12a62fa2d74d0453cf82ed1fffa9b2e226e47aa9440cc68aa1ce6289",
+                "sha256:cbe4b9146f8612fcb09f742a25eea729ec9a9e17bf2c9d6f2fc62abde15f63bd",
+                "sha256:edff9ff691d5759c39b218d035bfba7649c87baffdecf8787b54e1335b53e487",
+                "sha256:88e5fc976d6e1acdc2dd022b77e5b84e9077901fcf37c0ec6db5decf56db20d4",
+                "sha256:0db0a6610e90b1e4e6203a64db630900a9c9137b8b1a00d434de1771b58a4c13",
+                "sha256:36500a780a008441d948492419ba8db54a299d704a50558f6c10edb392b1f9b7",
+                "sha256:e142636ce00aaeb522c9b043a45afa6cca8c2b1bcfa8ab5b88ca083619291a9d",
+                "sha256:121a15fb39d5faab671d3f28373230d296344f3aef23daf8a374a725aad69944",
+                "sha256:ee0d7b683075be3d9744a770b92c65d6230629f342250a1406ef9b3fc874cfb7",
+                "sha256:e326aaafe862bfd84c471679ae6e2933e68fd9af195a72c4f59178a0483f7c45",
+                "sha256:5f75f9daff1454643c4323f197dd7c140e9c90267100f46d39411e6279a71acc"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]

@@ -87,6 +87,54 @@ Docker Top
 docker top 26630210bdea
 docker stats d18394251999
 
+Docker inspect
+
+$ docker inspect 26630210bdea
+
+Efectua la inspacción y se envía al archivo containe1.txt
+$ docker inspect 26630210bdea > containe1.txt
+$ docker inspect 7c6d73bed103 > image1.txt
+
+41. Introducción a los puertos en Docker
+
+Presentación
+
+42. Gestionar Puertos para acceder al contenedor. Ejemplo con
+NGINX
+$ docker pull nginx
+$ docker images
+
+crea el contenedor desde la imagen de nginx y expone todos los puertos publicos
+$ docker run -d -P nginx
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                   NAMES
+cbb83d45f02f   nginx     "/docker-entrypoint.…"   56 seconds ago   Up 54 seconds   0.0.0.0:32768->80/tcp   sharp_neumann
+
+
+0.0.0.0:32768->80/tcp = Puede acceder por cualquier dirección ip de la máquina principal, y utilizar el puerto 32768 para acceder al puerto 80 de nginx.
+
+http://18.188.39.91:32768/
+
+$ docker run -d --name nginx2 -p 8080:80 nginx
+$ docker ps
+
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                   NAMES
+ef3b63ded848   nginx     "/docker-entrypoint.…"   3 minutes ago    Up 3 minutes    0.0.0.0:8080->80/tcp    nginx2
+cbb83d45f02f   nginx     "/docker-entrypoint.…"   16 minutes ago   Up 16 minutes   0.0.0.0:32768->80/tcp   sharp_neumann
+
+
+http://18.188.39.91:8080/
+
+
+
+
+
+
+
+
+
+
 
 
 
