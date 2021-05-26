@@ -80,7 +80,90 @@ Muestra
 $ terraform destroy --auto-approve
 
 
+$ terraform console
+> docker_container.nodered_container[*].name
+[
+  "nodered-hvpc",
+  "nodered-x6p3",
+]
 
+Flatten
+value = join(":",flatten([docker_container.nodered_container[*].ip_address,docker_container.nodered_container[*].ports[0].external]))
+
+27. "For" Loops
+https://www.terraform.io/docs/configuration/expressions.html#for-expressions
+https://www.terraform.io/docs/language/expressions/for.html
+
+carlos:~/environment/terraform-docker (main) $ terraform console
+> [for i in [1,2,3,4,5]: 2*i]
+[
+  2,
+  4,
+  6,
+  8,
+  10,
+]
+> [for i in [1,2,3,4,5]: i + 2]
+[
+  3,
+  4,
+  5,
+  6,
+  7,
+]
+
+$ terraform console
+>  [for i in docker_container.nodered_container[*]: i.name]
+[
+  "nodered-hvpc",
+  "nodered-x6p3",
+]
+
+> [for i in docker_container.nodered_container[*]: i.ports[0]["external"]]
+[
+  32768,
+  32769,
+]
+
+> [for i in docker_container.nodered_container[*]: i.ports[0]]
+[
+  {
+    "external" = 32768
+    "internal" = 1880
+    "ip" = "0.0.0.0"
+    "protocol" = "tcp"
+  },
+  {
+    "external" = 32769
+    "internal" = 1880
+    "ip" = "0.0.0.0"
+    "protocol" = "tcp"
+  },
+]
+
+> [for i in docker_container.nodered_container[*]: i.ports[*]["external"]]
+[
+  tolist([
+    32768,
+  ]),
+  tolist([
+    32769,
+  ]),
+]
+
+> [for i in docker_container.nodered_container[*]: join(":",[i.ip_address],i.name)]
+[
+  "172.17.0.2:nodered-hvpc",
+  "172.17.0.3:nodered-x6p3",
+]
+
+> [for i in docker_container.nodered_container[*]: join(":",[i.ip_address],i.ports[*]["external"])]
+[
+  "172.17.0.2:32768",
+  "172.17.0.3:32769",
+]
+
+28. Tainting and Updating Resources
 
 
 
