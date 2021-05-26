@@ -127,6 +127,172 @@ cbb83d45f02f   nginx     "/docker-entrypoint.…"   16 minutes ago   Up 16 minut
 http://18.188.39.91:8080/
 
 
+43. Redes en Docker
+
+$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+046c541c1550   bridge    bridge    local
+39382b5cf72b   host      host      local
+7f083cad8543   none      null      local
+
+Red bridge permite que haya redes privadas y que se conecten con el exterior, es el típo de red por defecto.
+
+Red host los contenedores que pertenecen a la red host no se pueden ver entre sí solo se pueden comunicar al contenedor principal de la red host.
+
+none driver null es un contenedor que no tiene red.
+
+$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS                        PORTS                     NAMES
+9ef2341d634e   7c6d73bed103   "npm --no-update-not…"   16 hours ago   Exited (255) 11 minutes ago   0.0.0.0:32768->1880/tcp   nodered-hvpc
+35b954ba4cf6   7c6d73bed103   "npm --no-update-not…"   16 hours ago   Exited (255) 11 minutes ago   0.0.0.0:32769->1880/tcp   nodered-x6p3
+ef3b63ded848   nginx          "/docker-entrypoint.…"   40 hours ago   Exited (255) 21 hours ago     0.0.0.0:8080->80/tcp      nginx2
+cbb83d45f02f   nginx          "/docker-entrypoint.…"   40 hours ago   Exited (255) 21 hours ago     0.0.0.0:32768->80/tcp     sharp_neumann
+26630210bdea   ubuntu         "bash"                   3 days ago     Exited (0) 3 days ago                                   gallant_booth
+ff533263ae17   ubuntu         "bash"                   3 days ago     Exited (0) 3 days ago                                   gracious_blackwell
+2a7146294762   ubuntu         "bash"                   3 days ago     Created                                                 vigilant_volhard
+d18394251999   ubuntu         "sh -c 'while true; …"   3 days ago     Exited (255) 40 hours ago                               bold_keldysh
+
+
+$ docker start ef3b63ded848
+$ docker start sharp_neumann
+
+$ docker inspect nginx2 | grep IPAd
+
+"SecondaryIPAddresses": null,
+"IPAddress": "172.17.0.2",
+"IPAddress": "172.17.0.2",
+
+$ docker inspect sharp_neumann | grep IPAd
+"SecondaryIPAddresses": null,
+"IPAddress": "172.17.0.3",
+"IPAddress": "172.17.0.3",
+
+$ docker run -d --name nginx3 -p 9080:80 nginx 
+1b888f412272fb175dda54f4707d9ad66d08e16cbd6355dc508171ab2cc891a1
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS          PORTS                   NAMES
+1b888f412272   nginx     "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds    0.0.0.0:9080->80/tcp    nginx3
+ef3b63ded848   nginx     "/docker-entrypoint.…"   40 hours ago    Up 38 minutes   0.0.0.0:8080->80/tcp    nginx2
+cbb83d45f02f   nginx     "/docker-entrypoint.…"   41 hours ago    Up 33 minutes   0.0.0.0:32768->80/tcp   sharp_neumann
+
+$ docker inspect nginx3 | grep IPAd                                                                                                                          
+"SecondaryIPAddresses": null,
+"IPAddress": "172.17.0.4",
+"IPAddress": "172.17.0.4",
+
+$ ping 172.17.0.4
+PING 172.17.0.4 (172.17.0.4) 56(84) bytes of data.
+64 bytes from 172.17.0.4: icmp_seq=1 ttl=64 time=0.076 ms
+64 bytes from 172.17.0.4: icmp_seq=2 ttl=64 time=0.058 ms
+64 bytes from 172.17.0.4: icmp_seq=3 ttl=64 time=0.060 ms
+
+
+Cada vez que se crea un contenedor se agrega a una misma red.
+Los contenedores nginx3, nginx2 y sharp_neumann pertenecen a la misma red.
+
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS             PORTS                   NAMES
+1b888f412272   nginx     "/docker-entrypoint.…"   33 minutes ago   Up 33 minutes      0.0.0.0:9080->80/tcp    nginx3
+ef3b63ded848   nginx     "/docker-entrypoint.…"   41 hours ago     Up About an hour   0.0.0.0:8080->80/tcp    nginx2
+cbb83d45f02f   nginx     "/docker-entrypoint.…"   41 hours ago     Up About an hour   0.0.0.0:32768->80/tcp   sharp_neumann
+
+$ docker inspect nginx2
+.
+.
+"NetworkSettings": {
+    "Bridge": "",
+    "SandboxID": "3b2f136850d6479e637c1dd09970765e9d44825a36c4d8f316ac167ac8980ef0",
+    "HairpinMode": false,
+    "LinkLocalIPv6Address": "",
+    "LinkLocalIPv6PrefixLen": 0,
+    "Ports": {
+        "80/tcp": [
+            {
+                "HostIp": "0.0.0.0",
+                "HostPort": "8080"
+            }
+        ]
+    },
+    "SandboxKey": "/run/snap.docker/netns/3b2f136850d6",
+    "SecondaryIPAddresses": null,
+    "SecondaryIPv6Addresses": null,
+    "EndpointID": "557ae05fcc5a88ec7ce2cc3a265b0203a2a934a10726c338a8bed4743fd5f4c9",
+    "Gateway": "172.17.0.1",
+    "GlobalIPv6Address": "",
+    "GlobalIPv6PrefixLen": 0,
+    "IPAddress": "172.17.0.2",
+    
+44. Inspeccionar una red
+$ docker network
+
+$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+046c541c1550   bridge    bridge    local
+39382b5cf72b   host      host      local
+7f083cad8543   none      null      local
+
+
+$ docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "046c541c15503ee0a7771d83b491a9644ddd7a73de480df12911eb456a082f3e",
+        "Created": "2021-05-26T15:33:30.947126003Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "1b888f412272fb175dda54f4707d9ad66d08e16cbd6355dc508171ab2cc891a1": {
+                "Name": "nginx3",
+                "EndpointID": "a74f580c7763542db13ad10a565e21537a3cf7fe1a2a82e54e7854666fbf4a21",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            },
+            "cbb83d45f02f30f661ca30dc0f932154787e54962a1c0968222bdb41b9b1769b": {
+                "Name": "sharp_neumann",
+                "EndpointID": "47f775d0bf803b4a458f473e1414c99f0fd150d010ace268af48e0284e9e2453",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "ef3b63ded848347706ad150fbc4b99c878a879d2b9347153bc3bb14c0947921d": {
+                "Name": "nginx2",
+                "EndpointID": "557ae05fcc5a88ec7ce2cc3a265b0203a2a934a10726c338a8bed4743fd5f4c9",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+
 
 
 
