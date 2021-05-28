@@ -294,6 +294,88 @@ $ docker network inspect bridge
 ]
 
 
+46. Crear una nueva red
+
+$ docker network create --help
+
+$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+456b41888b3e   bridge    bridge    local
+39382b5cf72b   host      host      local
+7f083cad8543   none      null      local
+
+
+$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+456b41888b3e   bridge    bridge    local
+39382b5cf72b   host      host      local
+7f083cad8543   none      null      local
+9e716961240b   red1      bridge    local
+
+$ docker inspect red1
+[
+    {
+        "Name": "red1",
+        "Id": "9e716961240b766e8c4fbecd2ba2d7f86020f5ff989c106d867125d5b9027667",
+        "Created": "2021-05-28T17:17:57.751350571Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+$ docker network create --subnet=172.19.0.0/16 red2
+
+$ docker inspect red2
+[
+    {
+        "Name": "red2",
+        "Id": "e1f6f95171ba650de40b0ec5444257e86c276e761b7919b71ae84b20eccc115f",
+        "Created": "2021-05-28T17:37:41.647436702Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
 
 
 
