@@ -377,7 +377,55 @@ $ docker inspect red2
     }
 ]
 
+47. Asociar contenedores a una red
 
+$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+1a87f418bc33   bridge    bridge    local
+39382b5cf72b   host      host      local
+7f083cad8543   none      null      local
+9e716961240b   red1      bridge    local
+e1f6f95171ba   red2      bridge    local
+
+$ docker run -it --name ubuntua --network red1 ubuntu
+
+$ docker inspect ubuntua | grep IPAdd
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+
+$ docker run -d --name nginx4 --network red1 nginx
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS     NAMES
+9f0c1700de43   nginx     "/docker-entrypoint.…"   24 seconds ago   Up 23 seconds   80/tcp    nginx4
+7f81ee1abda4   ubuntu    "/bin/bash"              5 minutes ago    Up 5 minutes              ubuntua
+
+$ docker inspect nginx4 | grep IPAdd
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+
+/# apt-get update
+/# apt-get install iputils-ping
+
+root@7f81ee1abda4:/# ping 172.18.0.3
+PING 172.18.0.3 (172.18.0.3) 56(84) bytes of data.
+64 bytes from 172.18.0.3: icmp_seq=1 ttl=64 time=0.080 ms
+64 bytes from 172.18.0.3: icmp_seq=2 ttl=64 time=0.067 ms
+64 bytes from 172.18.0.3: icmp_seq=3 ttl=64 time=0.066 ms
+64 bytes from 172.18.0.3: icmp_seq=4 ttl=64 time=0.067 ms
+64 bytes from 172.18.0.3: icmp_seq=5 ttl=64 time=0.070 ms
+64 bytes from 172.18.0.3: icmp_seq=6 ttl=64 time=0.067 ms
+
+Asocia la red2 al contenedor ubuntua
+$ docker network connect red2 ubuntua
+
+$ docker inspect ubuntua | grep IPAdd
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+                    "IPAddress": "172.19.0.2",
 
 
 
