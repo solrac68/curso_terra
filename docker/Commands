@@ -429,14 +429,112 @@ $ docker inspect ubuntua | grep IPAdd
 
 
 
+$ docker inspect ubuntua | grep IPAdd
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+                    
 
 
 
 
 
 
+49. Enlazar contenedores con --link. Con imagen Busybox
+
+$ docker ps -a | wc -l
+12
+
+$ docker ps -q
+9f0c1700de43
+7f81ee1abda4
+
+$ docker ps -aq
+9f0c1700de43
+7f81ee1abda4
+1b888f412272
+9ef2341d634e
+35b954ba4cf6
+ef3b63ded848
+cbb83d45f02f
+26630210bdea
+ff533263ae17
+2a7146294762
+d18394251999
+
+Eliminar todos los contenedores
+docker rm `docker ps -aq`
+
+Descarga y ejecuta busybox se inicia la consola iteractiva y se elimina contenedor cuando no se requiere.
+
+$ docker run -it --rm --name b1 busybox
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.2      c7f8a3b4ce44
+
+# ping 172.17.0.3
+PING 172.17.0.3 (172.17.0.3): 56 data bytes
+64 bytes from 172.17.0.3: seq=0 ttl=64 time=0.113 ms
+64 bytes from 172.17.0.3: seq=1 ttl=64 time=0.083 ms
+64 bytes from 172.17.0.3: seq=2 ttl=64 time=0.083 ms
+64 bytes from 172.17.0.3: seq=3 ttl=64 time=0.085 ms
+64 bytes from 172.17.0.3: seq=4 ttl=64 time=0.084 ms
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS         PORTS     NAMES
+c7f8a3b4ce44   busybox   "sh"      2 minutes ago   Up 2 minutes             b1
+
+$ docker network inspect bridge
+
+$ docker network inspect bridge | grep "Name"
+        "Name": "bridge",
+                "Name": "b1",
 
 
 
 
+$ docker run -it --rm --name b2 busybox
 
+/ # cat /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.3      5cd68b86a0f3
+
+/ # ping 172.17.0.2
+PING 172.17.0.2 (172.17.0.2): 56 data bytes
+64 bytes from 172.17.0.2: seq=0 ttl=64 time=0.063 ms
+64 bytes from 172.17.0.2: seq=1 ttl=64 time=0.082 ms
+64 bytes from 172.17.0.2: seq=2 ttl=64 time=0.083 ms
+
+Crear un contenedor y permite crear un enlace con el nombre de l máquina y un alias.
+$ docker run -it --rm --name b3 --link b1:maquina1 busybox
+
+# cat etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.2      maquina1 c7f8a3b4ce44 b1
+172.17.0.4      d4206f0c48ad
+
+ # ping maquina1
+PING maquina1 (172.17.0.2): 56 data bytes
+64 bytes from 172.17.0.2: seq=0 ttl=64 time=0.094 ms
+64 bytes from 172.17.0.2: seq=1 ttl=64 time=0.090 ms
+64 bytes from 172.17.0.2: seq=2 ttl=64 time=0.081 ms
+
+# ping b1
+PING b1 (172.17.0.2): 56 data bytes
+64 bytes from 172.17.0.2: seq=0 ttl=64 time=0.066 ms
+64 bytes from 172.17.0.2: seq=1 ttl=64 time=0.081 ms
+64 bytes from 172.17.0.2: seq=2 ttl=64 time=0.080 ms
